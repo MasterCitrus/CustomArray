@@ -14,15 +14,26 @@ int main()
 	Array<int> test(10, 1);
 	Array<int> numbers{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
 
-	for (auto value : numbers) std::cout << value << std::endl;
+	numbers.Insert(numbers.begin() + 5, 50);
 
-	auto sum = std::accumulate(numbers.begin(), numbers.end(), 0);
-	std::cout << sum << std::endl;
+	for (auto value : numbers) std::cout << value << "\n";
+	std::cout << '\n';
 
-	auto thing = numbers.Find(3);
+	numbers.RemoveOrdered(numbers.begin() + 5);
 
-	if (thing != numbers.end()) std::cout << *thing << " has been found.\n";
-	else std::cout << "Not found.\n";
+	for (auto value : numbers) std::cout << value << "\n";
+
+	numbers.RemoveUnordered(numbers.begin() + 5);
+
+	for (auto value : numbers) std::cout << value << "\n";
+
+	//auto sum = std::accumulate(numbers.begin(), numbers.end(), 0);
+	//std::cout << sum << std::endl;
+
+	//auto thing = numbers.Find(3);
+
+	//if (thing != numbers.end()) std::cout << *thing << " has been found.\n";
+	//else std::cout << "Not found.\n";
 
 	//PrintStats(numbers);
 

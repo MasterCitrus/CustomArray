@@ -1,6 +1,7 @@
 #pragma once
 #include "Iterator.h"
 
+#include <iostream>
 #include <cmath>
 #include <initializer_list>
 
@@ -35,35 +36,27 @@ public:
 	iterator Insert(const_iterator pos, const T& value);
 
 	//Remove from middle of array, ordered and unordered
-	void RemoveOrdered();
-	void RemoveUnordered();
+	iterator RemoveOrdered(const_iterator pos);
+	iterator RemoveUnordered(const_iterator pos);
 
 	//Allocate more or less space in array
-	void Allocate(size_t size);
-	void Deallocate(size_t size);
+	void Allocate(size_t chunk);
+	void Deallocate(size_t chunk);
 
 	//Clear array
 	void Clear();
 
-	//Sort function
-
-
 	//Search function
 	iterator Find(const T& value);
-
-	//Concatenate arrays
-
-
-	//Shuffle array
-
-
-	//Rotate array
-
 
 	//Array information functions
 	unsigned int Size() const;
 	unsigned int Capacity() const;
 	bool Empty();
+
+	//Get elements
+	T& Front();
+	T& Back();
 
 	//Iterators
 	iterator begin() { return &data[0]; }
@@ -159,8 +152,43 @@ template<typename T>
 void Array<T>::PushBack(const T& value)
 {
 	if (size == capacity) Allocate(std::ceil(capacity * 1.5));
-	data[size] = value;
+	*end() = value;
 	size++;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+template<typename T>
+typename Array<T>::iterator Array<T>::Insert(const_iterator pos, const T& value)
+{
+	auto offset = pos - begin();
+	if (size == capacity) Allocate(std::ceil(capacity * 1.5));
+	pos = begin() + offset;
+	PushBack(Back());
+	for (auto it = end() - 1; it != pos; --it)
+	{
+		*it = *(it - 1);
+	}
+	*pos = value;
+	return pos;
+}
+
+template<typename T>
+typename Array<T>::iterator Array<T>::RemoveOrdered(const_iterator pos)
+{
+	for (auto it = pos; it != end() - 1; ++it)
+	{
+		*it = *(it + 1);
+	}
+	size--;
+	return pos;
+}
+
+template<typename T>
+typename Array<T>::iterator Array<T>::RemoveUnordered(const_iterator pos)
+{
+	*pos = *(end() - 1);
+	size--;
+	return pos;
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -232,4 +260,17 @@ template<typename T>
 inline bool Array<T>::Empty()
 {
 	return begin() = end();
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+template<typename T>
+T& Array<T>::Front()
+{
+	return *begin();
+}
+
+template<typename T>
+T& Array<T>::Back()
+{
+	return *(end() - 1);
 }

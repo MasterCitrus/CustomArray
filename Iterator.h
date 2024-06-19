@@ -20,68 +20,68 @@ public:
 	pointer operator->() const { return ptr; }
 	reference operator[](difference_type n) const { return *(ptr + n); }
 
-	Iterator& operator++()
+	Iterator<T>& operator++()
 	{
 		++ptr;
-		return*this;
+		return *this;
 	}
-	Iterator operator++(int)
+	Iterator<T> operator++(int)
 	{
-		Iterator temp = *this;
+		Iterator<T> temp = *this;
 		++ptr;
 		return temp;
 	}
 
-	Iterator& operator--()
+	Iterator<T>& operator--()
 	{
 		--ptr;
 		return *this;
 	}
-	Iterator operator--(int)
+	Iterator<T> operator--(int)
 	{
-		Iterator temp = *this;
+		Iterator<T> temp = *this;
 		--ptr;
 		return temp;
 	}
 
-	Iterator& operator+=(difference_type n)
+	Iterator<T>& operator+=(difference_type n)
 	{
 		ptr += n;
 		return *this;
 	}
-	Iterator& operator-=(difference_type n)
+	Iterator<T>& operator-=(difference_type n)
 	{
 		ptr -= n;
 		return *this;
 	}
 
-	friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.ptr == rhs.ptr; }
-	friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
+	friend bool operator==(const Iterator<T>& lhs, const Iterator<T>& rhs) { return lhs.ptr == rhs.ptr; }
+	friend bool operator!=(const Iterator<T>& lhs, const Iterator<T>& rhs) { return !(lhs == rhs); }
 
-	friend bool operator<(const Iterator& lhs, const Iterator& rhs) { return lhs.ptr < rhs.ptr; }
-	friend bool operator>(const Iterator& lhs, const Iterator& rhs) { return rhs < lhs; }
+	friend bool operator<(const Iterator<T>& lhs, const Iterator<T>& rhs) { return lhs.ptr < rhs.ptr; }
+	friend bool operator>(const Iterator<T>& lhs, const Iterator<T>& rhs) { return rhs < lhs; }
 
-	friend bool operator<=(const Iterator& lhs, const Iterator& rhs) { return !(rhs < lhs); }
-	friend bool operator>=(const Iterator& lhs, const Iterator& rhs) { return !(lhs < rhs); }
+	friend bool operator<=(const Iterator<T>& lhs, const Iterator<T>& rhs) { return !(rhs < lhs); }
+	friend bool operator>=(const Iterator<T>& lhs, const Iterator<T>& rhs) { return !(lhs < rhs); }
 
-	friend Iterator operator+(const Iterator& it, difference_type n)
+	friend Iterator<T> operator+(const Iterator<T>& it, difference_type n)
 	{
-		Iterator temp = it;
+		Iterator<T> temp = it;
 		temp += n;
 		return temp;
 	}
-	friend Iterator operator+(difference_type n, const Iterator& it)
+	friend Iterator<T> operator+(difference_type n, const Iterator<T>& it)
 	{
 		return it + n;
 	}
 
-	friend Iterator operator-(const Iterator& it, difference_type n)
+	friend Iterator<T> operator-(const Iterator<T>& it, difference_type n)
 	{
-		Iterator temp = it;
+		Iterator<T> temp = it;
 		temp -= n;
 		return temp;
 	}
-	friend difference_type operator-(const Iterator& lhs, const Iterator& rhs)
+	friend difference_type operator-(const Iterator<T>& lhs, const Iterator<T>& rhs)
 	{
 		return lhs.ptr - rhs.ptr;
 	}
